@@ -1,0 +1,11 @@
+docker run -d -p 5000:5000 --name registry registry:2
+docker build -t img_build .
+docker run --name appgo -d img_build
+docker build -t img_nginx .
+docker run --name ngingxgo -d img_nginx
+docker commit appgo multiappgo
+docker commit ngingxgo multinginx
+docker tag multiappgo bloodychaton/tpmulti:multiappgo
+docker push bloodychaton/tpmulti:multiappgo
+docker tag multinginx bloodychaton/tpmulti:multinginx
+docker push bloodychaton/tpmulti:multinginx
